@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Work_TimerApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(appDelegate: appDelegate)
         }
     }
 }

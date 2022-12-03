@@ -11,6 +11,7 @@
 		61C6F970293B93DA00BC66F8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C6F96F293B93DA00BC66F8 /* ContentView.swift */; };
 		61C6F972293B93DB00BC66F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C6F971293B93DB00BC66F8 /* Assets.xcassets */; };
 		61C6F975293B93DB00BC66F8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C6F974293B93DB00BC66F8 /* Preview Assets.xcassets */; };
+		61C6F97F293BA91700BC66F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C6F97E293BA91700BC66F8 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		61C6F971293B93DB00BC66F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61C6F974293B93DB00BC66F8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		61C6F976293B93DB00BC66F8 /* Work_Timer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Work_Timer.entitlements; sourceTree = "<group>"; };
+		61C6F97E293BA91700BC66F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				61C6F971293B93DB00BC66F8 /* Assets.xcassets */,
 				61C6F976293B93DB00BC66F8 /* Work_Timer.entitlements */,
 				61C6F973293B93DB00BC66F8 /* Preview Content */,
+				61C6F97E293BA91700BC66F8 /* AppDelegate.swift */,
 			);
 			path = "Work Timer";
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61C6F97F293BA91700BC66F8 /* AppDelegate.swift in Sources */,
 				61C6F970293B93DA00BC66F8 /* ContentView.swift in Sources */,
 				61C6F96E293B93DA00BC66F8 /* Work_TimerApp.swift in Sources */,
 			);
