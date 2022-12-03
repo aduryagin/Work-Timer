@@ -1,7 +1,7 @@
 #  Work Timer
 A simple Pomodoro tracker app for MacOS.
 
-![](https://github.com/aduryagin/Work-Timer/blob/main/demo.gif)
+![](https://github.com/aduryagin/Work-Timer/blob/main/Work-Timer.gif)
 
 ## Description
 Every vertical line or section on the progress bar is a 25 minute work session (1 pomodoro). 
