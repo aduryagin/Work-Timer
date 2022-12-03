@@ -12,7 +12,6 @@
 		61C6F972293B93DB00BC66F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C6F971293B93DB00BC66F8 /* Assets.xcassets */; };
 		61C6F975293B93DB00BC66F8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C6F974293B93DB00BC66F8 /* Preview Assets.xcassets */; };
 		61C6F97F293BA91700BC66F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C6F97E293BA91700BC66F8 /* AppDelegate.swift */; };
-		61C6F982293BDAB700BC66F8 /* Work-Timer.gif in Resources */ = {isa = PBXBuildFile; fileRef = 61C6F981293BDAB700BC66F8 /* Work-Timer.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,7 +135,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				61C6F975293B93DB00BC66F8 /* Preview Assets.xcassets in Resources */,
-				61C6F982293BDAB700BC66F8 /* Work-Timer.gif in Resources */,
 				61C6F972293B93DB00BC66F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
