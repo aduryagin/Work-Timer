@@ -25,18 +25,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Text(min)
                 .font(.system(size: 10, weight: .bold))
                 .foregroundColor(inProgress ? Color.black : Color.white).zIndex(1)
-        }.frame(height: 18)
+        }
+            .frame(height: 18)
         let iconView = NSHostingView(rootView: iconSwiftUI)
         iconView.frame = NSRect(x: 0, y: 0, width: 42, height: 22)
         
-        if (self.statusBarItem!.button?.subviews.count != 0) {
-            for subview in self.statusBarItem!.button!.subviews {
-                subview.removeFromSuperview()
+        if let button = self.statusBarItem?.button {
+            if (button.subviews.count != 0) {
+                for subview in self.statusBarItem!.button!.subviews {
+                    subview.removeFromSuperview()
+                }
             }
+            
+            button.addSubview(iconView)
+            button.frame = iconView.frame
+            
+            button.action = #selector(self.handleTrayIconClick(sender:))
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
-        
-        self.statusBarItem!.button!.addSubview(iconView)
-        self.statusBarItem!.button!.frame = iconView.frame
+    }
+    
+    func activateApplication() {
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    
+    @objc func handleTrayIconClick(sender: NSStatusItem) {
+        activateApplication()
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {

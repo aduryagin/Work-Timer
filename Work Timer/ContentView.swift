@@ -8,69 +8,12 @@
 import SwiftUI
 import UserNotifications
 
-struct LongLine: View {
-    var color: Color = Color.gray
-    
-    var body: some View {
-        Rectangle()
-            .fill(color)
-            .frame(width: 1, height: 18, alignment: .center)
-    }
-}
-
-struct ShortLine: View {
-    var color: Color = Color.gray
-    
-    var body: some View {
-        Rectangle()
-            .fill(color)
-            .frame(width: 1, height: 14, alignment: .center)
-    }
-}
-
-struct Progress: View {
-    var value: Double
-    var total: Double
-    
-    var body: some View {
-        ZStack {
-            ProgressView(value: value, total: total).zIndex(1)
-            HStack {
-                ShortLine()
-                Spacer()
-                ForEach((1...15), id: \.self) {_ in
-                    ShortLine(color: Color.gray.opacity(0.5))
-                    Spacer()
-                }
-                ShortLine()
-            }
-            HStack {
-                LongLine()
-                Spacer()
-                LongLine(color: Color.orange)
-                Spacer()
-                LongLine(color: Color.orange)
-                Spacer()
-                LongLine(color: Color.orange)
-                Spacer()
-                LongLine()
-            }
-        }
-    }
-}
-
-struct Progress_Previews: PreviewProvider {
-    static var previews: some View {
-        Progress(value: 5, total: 10).padding().frame(width: 200)
-    }
-}
-
 struct ContentView: View {
     let appDelegate: AppDelegate
     let workSessionSeconds: Double = 25 * 60 // 25 min
     let workDaySeconds: Double = 400 * 60 // 400 min
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var counter: Double = 0
+    @State var counter: Double = 99 * 60 + 55
     @State var isTimerRunning = false
     
     func formatTime(_ seconds: Double) -> String {
@@ -95,7 +38,6 @@ struct ContentView: View {
     func showNotification(message: String = "Time for a 5 min break") {
         let content = UNMutableNotificationContent()
         content.title = message
-//        content.subtitle = "5 min"
         content.sound = UNNotificationSound.default
 
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
@@ -122,10 +64,15 @@ struct ContentView: View {
                             isTimerRunning = false
                             
                             showNotification(message: "Workday is over!")
-                            NSApp.activate(ignoringOtherApps: true)
+                            appDelegate.activateApplication()
                         } else if (remainder == 0) {
-                            showNotification()
-                            NSApp.activate(ignoringOtherApps: true)
+                            var message = "Time for a 5 min break"
+                            if (counter.truncatingRemainder(dividingBy: workSessionSeconds * 4) == 0) {
+                                message = "Time for a 15 min break"
+                            }
+                            
+                            showNotification(message: message)
+                            appDelegate.activateApplication()
                         }
                     }
                     
@@ -134,6 +81,12 @@ struct ContentView: View {
             Progress(value: counter, total: workDaySeconds)
             
             HStack {
+                Button {
+                    let index = floor(counter / workSessionSeconds) - 1
+                    counter = index * workSessionSeconds
+                } label: {
+                    Image(systemName: "chevron.left")
+                }.disabled(counter == 0)
                 Button {
                     isTimerRunning = false
                     counter = 0
@@ -147,6 +100,12 @@ struct ContentView: View {
                 } label: {
                     Text(isTimerRunning ? "Pause" : counter != 0 ? "Continue" : "Start")
                 }
+                Button {
+                    let index = floor(counter / workSessionSeconds) + 1
+                    counter = index * workSessionSeconds
+                } label: {
+                    Image(systemName: "chevron.right")
+                }.disabled(counter == workDaySeconds)
             }
         }
         .padding()
