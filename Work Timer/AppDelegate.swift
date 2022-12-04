@@ -47,6 +47,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func activateApplication() {
         NSApp.activate(ignoringOtherApps: true)
+        NSApp.unhide(self)
+            
+        if let wnd = NSApp.windows.first {
+            wnd.makeKeyAndOrderFront(self)
+            wnd.setIsVisible(true)
+        }
     }
     
     @objc func handleTrayIconClick(sender: NSStatusItem) {
