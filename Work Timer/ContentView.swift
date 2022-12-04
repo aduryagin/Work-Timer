@@ -13,7 +13,7 @@ struct ContentView: View {
     let workSessionSeconds: Double = 25 * 60 // 25 min
     let workDaySeconds: Double = 400 * 60 // 400 min
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var counter: Double = 99 * 60 + 55
+    @State var counter: Double = 0
     @State var isTimerRunning = false
     
     func formatTime(_ seconds: Double) -> String {
@@ -84,6 +84,7 @@ struct ContentView: View {
                 Button {
                     let index = floor(counter / workSessionSeconds) - 1
                     counter = index * workSessionSeconds
+                    let _ = updateTrayMins(inProgress: false)
                 } label: {
                     Image(systemName: "chevron.left")
                 }.disabled(counter == 0)
@@ -103,6 +104,7 @@ struct ContentView: View {
                 Button {
                     let index = floor(counter / workSessionSeconds) + 1
                     counter = index * workSessionSeconds
+                    let _ = updateTrayMins(inProgress: false)
                 } label: {
                     Image(systemName: "chevron.right")
                 }.disabled(counter == workDaySeconds)
