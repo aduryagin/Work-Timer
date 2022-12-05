@@ -14,28 +14,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem?
     
     func resetIcon() {
-        self.updateIcon("-", inProgress: false)
+        self.updateIcon("minus", inProgress: false)
     }
     
     func updateIcon(_ min: String, inProgress: Bool) {
-        let iconSwiftUI = ZStack {
-            Circle()
-                .fill(inProgress ? Color.white.opacity(0.8) : Color.gray.opacity(0.4))
-            
-            Text(min)
-                .font(.system(size: 10, weight: .bold))
-                .foregroundColor(inProgress ? Color.black : Color.white).zIndex(1)
-        }
-            .frame(height: 18)
-        let iconView = NSHostingView(rootView: iconSwiftUI)
-        iconView.frame = NSRect(x: 0, y: 0, width: 42, height: 22)
-        
         if let button = self.statusBarItem?.button {
             if (button.subviews.count != 0) {
                 for subview in self.statusBarItem!.button!.subviews {
                     subview.removeFromSuperview()
                 }
             }
+            
+            let iconSwiftUI = Image(systemName: "\(min).circle\(inProgress ? ".fill" : "")")
+                .resizable()
+                .frame(width: 17, height: 17)
+            let iconView = NSHostingView(rootView: iconSwiftUI)
+            iconView.frame = NSRect(x: 0, y: 0, width: 42, height: 22)
             
             button.addSubview(iconView)
             button.frame = iconView.frame
@@ -48,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func activateApplication() {
         NSApp.activate(ignoringOtherApps: true)
         NSApp.unhide(self)
-            
+        
         if let wnd = NSApp.windows.first {
             wnd.makeKeyAndOrderFront(self)
             wnd.setIsVisible(true)
@@ -65,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
         
         if self.statusBarItem!.button != nil {
-            updateIcon("-", inProgress: false)
+            resetIcon()
         }
     }
 }
