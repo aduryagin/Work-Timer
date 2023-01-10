@@ -138,7 +138,9 @@ struct ContentView: View {
                     let _ = updateTrayMins(inProgress: isTimerRunning)
                 } label: {
                     Text(isTimerRunning ? "Pause" : counter != 0 ? "Continue" : "Start")
-                }.disabled(isSetCounterView)
+                }
+                .keyboardShortcut(.space, modifiers: [])
+                .disabled(isSetCounterView)
                 Button {
                     let index = floor(counter / workSessionSeconds) + 1
                     counter = index * workSessionSeconds
