@@ -108,6 +108,7 @@ struct ContentView: View {
                             if (new < workDaySeconds && new >= 0) {
                                 counter = new
                                 isSetCounterView.toggle()
+                                let _ = updateTrayMins(inProgress: false)
                             }
                         } label: {
                             Text("Save")
