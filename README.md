@@ -10,3 +10,6 @@ The Pomodoro Technique implies that you have to take at least a small 5 minute b
 The app will send you a notification every 25 minutes.
 
 https://en.wikipedia.org/wiki/Pomodoro_Technique
+
+## Features
+* E2E encrypted synchronisation of multiple timers via Nostr protocol https://github.com/nostr-protocol/nostr
