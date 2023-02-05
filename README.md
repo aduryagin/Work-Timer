@@ -17,6 +17,7 @@ https://en.wikipedia.org/wiki/Pomodoro_Technique
 ![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/nostr-sync.gif)
 
 * Work session minutes in the tray icon
+
 ![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/tray-icon.gif)
 
 * Timer automatically focuses after 25-minute work session ends
