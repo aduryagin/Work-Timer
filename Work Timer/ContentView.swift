@@ -183,6 +183,11 @@ struct ContentView: View {
                 } else if (isNostrView) {
                     VStack(alignment: .center) {
                         HStack {
+                            TextField("Relay", text: $websocket.relay)
+                                .onChange(of: websocket.relay, perform: { _ in
+                                    websocket.reconnect()
+                                })
+                                .frame(width: 150)
                             TextField("Key", text: $nostrPrivateKey).frame(width: 150)
                             Circle()
                                 .fill(

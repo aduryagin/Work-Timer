@@ -9,28 +9,28 @@ import Foundation
 import NostrKit
 import Network
 import AppKit
+import SwiftUI
 
 enum ConnectionStatus {
     case Success
     case Error
 }
 
+let DEFAULT_RELAY = "wss://nostr-pub.wellorder.net"
+
 class Websocket: ObservableObject {
-    var instance: URLSessionWebSocketTask
-    var networkMonitor: NWPathMonitor
-    @Published var status: ConnectionStatus
+    @AppStorage("relay") var relay = DEFAULT_RELAY
+    var instance: URLSessionWebSocketTask = Websocket.createWebsocketConnection(url: DEFAULT_RELAY)
+    var networkMonitor: NWPathMonitor = NWPathMonitor()
+    @Published var status: ConnectionStatus = ConnectionStatus.Error
     var onEvent: (_ event: Event) -> Void = { _ in }
     var connectCallback: () -> Void = {}
     
-    init(
-        instance: URLSessionWebSocketTask = Websocket.createWebsocketConnection(),
-        networkMonitor: NWPathMonitor = NWPathMonitor(),
-        status: ConnectionStatus = ConnectionStatus.Error
-    ) {
-        self.instance = instance
-        self.networkMonitor = networkMonitor
-        self.status = status
-        
+    init() {
+        setupNetworkMonitor()
+    }
+    
+    func setupNetworkMonitor() {
         networkMonitor.start(queue: DispatchQueue.main)
         networkMonitor.pathUpdateHandler = { path in
             self.status = path.status == .satisfied ? .Success : .Error
@@ -64,6 +64,7 @@ class Websocket: ObservableObject {
     }
     
     func connect(onEvent: @escaping (_ event: Event) -> Void, callback: @escaping () -> Void) {
+        self.instance = Websocket.createWebsocketConnection(url: relay)
         self.onEvent = onEvent
         self.connectCallback = callback
         func listen() {
@@ -108,13 +109,13 @@ class Websocket: ObservableObject {
     }
     
     func reconnect() {
-        self.instance = Websocket.createWebsocketConnection()
         self.connect(onEvent: self.onEvent, callback: self.connectCallback)
     }
     
-    static func createWebsocketConnection() -> URLSessionWebSocketTask {
-//        return URLSession(configuration: .default).webSocketTask(with: URL(string: "wss://nostr-pub.wellorder.net")!)
-        return URLSession(configuration: .default).webSocketTask(with: URL(string: "ws://localhost:8080")!)
+    static func createWebsocketConnection(url: String) -> URLSessionWebSocketTask {
+        let url = (url.starts(with: "ws:") || url.starts(with: "wss:")) && url.count > 5 ? url : DEFAULT_RELAY
+        return URLSession(configuration: .default)
+            .webSocketTask(with: (URL(string: url) ?? URL(string: DEFAULT_RELAY))!)
     }
     
     // sleep events
