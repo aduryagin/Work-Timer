@@ -18,24 +18,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateIcon(_ min: String, inProgress: Bool) {
-        if let button = self.statusBarItem?.button {
-            if (button.subviews.count != 0) {
-                for subview in self.statusBarItem!.button!.subviews {
-                    subview.removeFromSuperview()
+        DispatchQueue.main.async {
+            if let button = self.statusBarItem?.button {
+                if (button.subviews.count != 0) {
+                    for subview in self.statusBarItem!.button!.subviews {
+                        subview.removeFromSuperview()
+                    }
                 }
+                
+                let iconSwiftUI = Image(systemName: "\(min).circle\(inProgress ? ".fill" : "")")
+                    .resizable()
+                    .frame(width: 17, height: 17)
+                let iconView = NSHostingView(rootView: iconSwiftUI)
+                iconView.frame = NSRect(x: 0, y: 0, width: 42, height: 22)
+                
+                button.addSubview(iconView)
+                button.frame = iconView.frame
+                
+                button.action = #selector(self.handleTrayIconClick(sender:))
+                button.sendAction(on: [.leftMouseUp, .rightMouseUp])
             }
-            
-            let iconSwiftUI = Image(systemName: "\(min).circle\(inProgress ? ".fill" : "")")
-                .resizable()
-                .frame(width: 17, height: 17)
-            let iconView = NSHostingView(rootView: iconSwiftUI)
-            iconView.frame = NSRect(x: 0, y: 0, width: 42, height: 22)
-            
-            button.addSubview(iconView)
-            button.frame = iconView.frame
-            
-            button.action = #selector(self.handleTrayIconClick(sender:))
-            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
     }
     
@@ -62,6 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             resetIcon()
         }
     }
+    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {

@@ -7,13 +7,20 @@
 
 import SwiftUI
 import UserNotifications
+import NostrKit
+import secp256k1
 
 struct ContentView: View {
     let appDelegate: AppDelegate
     let workSessionSeconds: Double = 25 * 60 // 25 min
     let workDaySeconds: Double = 400 * 60 // 400 min
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let nostr = Nostr()
+    @ObservedObject var websocket = Websocket()
     
+    @AppStorage("nostrPrivateKey") private var nostrPrivateKey = ""
+    
+    @State var isNostrView = false
     @State var isSetCounterView = false
     @State var newCounter: String = ""
     @State var isSessionView = false
@@ -61,7 +68,48 @@ struct ContentView: View {
     
     func pause() {
         isTimerRunning = false
-        let _ = updateTrayMins(inProgress: isTimerRunning)
+    }
+    
+    // Nostr
+    
+    func generateKeys() -> Void {
+        let privateKey = try! secp256k1.Signing.PrivateKey()
+        nostrPrivateKey = String(bytes: privateKey.rawRepresentation)
+    }
+    
+    func subscribeToSecondsNostr() {
+        do {
+            // subscribe to my own private messages
+            let keyPair = try KeyPair(privateKey: nostrPrivateKey)
+            let subscription = Subscription(
+                filters: [
+                    .init(
+                        authors: [keyPair.publicKey],
+                        eventKinds: [.custom(4)],
+                        limit: 1
+                    )
+                ]
+            )
+            let message = ClientMessage.subscribe(subscription)
+            websocket.sendMessage(message: message)
+        } catch let error {
+            websocket.setStatus(status: .Error)
+            print(error)
+        }
+    }
+    
+    func sendSecondsToNostr() {
+        do {
+            let seconds = counter
+            let event = try nostr.encryptedEvent(String(seconds), privateKey: nostrPrivateKey)
+            if let event = event {
+                let message = ClientMessage.event(event)
+                websocket.sendMessage(message: message)
+            }
+        } catch let error {
+            websocket.setStatus(status: .Error)
+            print(error)
+        }
     }
     
     var body: some View {
@@ -75,7 +123,7 @@ struct ContentView: View {
                     .onReceive(timer) { time in
                         if (isTimerRunning) {
                             counter += 1
-                            let remainder = updateTrayMins(inProgress: true)
+                            let remainder = getSessionSeconds()
                             
                             if (counter == workDaySeconds) {
                                 isTimerRunning = false
@@ -93,14 +141,31 @@ struct ContentView: View {
                             }
                         }
                     }
-                if (!isSetCounterView) {
-                    Button {
-                        isSetCounterView.toggle()
-                        pause()
-                    } label: {
-                        Text("Set seconds")
+                if (!isSetCounterView && !isNostrView) {
+                    HStack {
+                        Button {
+                            isSetCounterView.toggle()
+                            pause()
+                        } label: {
+                            Text("Set seconds manually")
+                        }
+                        Button {
+                            isNostrView.toggle()
+                            pause()
+                        } label: {
+                            HStack(alignment: VerticalAlignment.center) {
+                                Text("Sync via Nostr settings")
+                                Circle()
+                                    .fill(
+                                        websocket.status == .Error ?
+                                            Color.red :
+                                            Color.green)
+                                    .frame(height: 7)
+                                    .padding(.top, 2)
+                            }
+                        }
                     }
-                } else {
+                } else if (isSetCounterView) {
                     HStack {
                         TextField("Seconds", text: $newCounter).frame(width: 150)
                         Button {
@@ -108,11 +173,36 @@ struct ContentView: View {
                             if (new < workDaySeconds && new >= 0) {
                                 counter = new
                                 isSetCounterView.toggle()
-                                let _ = updateTrayMins(inProgress: false)
                             }
                         } label: {
                             Text("Save")
                         }
+                        .keyboardShortcut(.return, modifiers: [])
+                    }
+                } else if (isNostrView) {
+                    VStack(alignment: .center) {
+                        HStack {
+                            TextField("Key", text: $nostrPrivateKey).frame(width: 150)
+                            Circle()
+                                .fill(
+                                    websocket.status == .Error ?
+                                        Color.red :
+                                        Color.green)
+                                .frame(height: 7)
+                                .padding(.top, 2)
+                            Button {
+                                generateKeys()
+                                subscribeToSecondsNostr()
+                            } label: {
+                                Text("Regenerate")
+                            }
+                            Button {
+                                isNostrView.toggle()
+                            } label: {
+                                Text("Cancel")
+                            }
+                        }
+                        Text("Paste this key to another client. Keys must be equal.").font(.system(size: 11))
                     }
                 }
             }
@@ -123,38 +213,70 @@ struct ContentView: View {
                 Button {
                     let index = floor(counter / workSessionSeconds) - 1
                     counter = index * workSessionSeconds
-                    let _ = updateTrayMins(inProgress: false)
                 } label: {
                     Image(systemName: "chevron.left")
-                }.disabled(counter == 0 || isSetCounterView)
+                }.disabled(counter == 0 || isSetCounterView || isNostrView)
                 Button {
                     isTimerRunning = false
                     counter = 0
                     appDelegate.resetIcon()
                 } label: {
                     Text("Reset")
-                }.disabled(counter == 0 || isSetCounterView)
+                }.disabled(counter == 0 || isSetCounterView || isNostrView)
                 Button {
                     isTimerRunning.toggle()
-                    let _ = updateTrayMins(inProgress: isTimerRunning)
                 } label: {
                     Text(isTimerRunning ? "Pause" : counter != 0 ? "Continue" : "Start")
                 }
                 .keyboardShortcut(.space, modifiers: [])
-                .disabled(isSetCounterView)
+                .disabled(isSetCounterView || isNostrView)
                 Button {
                     let index = floor(counter / workSessionSeconds) + 1
                     counter = index * workSessionSeconds
-                    let _ = updateTrayMins(inProgress: false)
                 } label: {
                     Image(systemName: "chevron.right")
-                }.disabled(counter == workDaySeconds || isSetCounterView)
+                }.disabled(counter == workDaySeconds || isSetCounterView || isNostrView)
             }
         }
         .padding()
         .onChange(of: counter, perform: { counter in
             newCounter = String(counter)
+            let _ = updateTrayMins(inProgress: isTimerRunning)
+            
+            // send private message about change
+            if (isTimerRunning) {
+                sendSecondsToNostr()
+            }
         })
+        .onChange(of: isTimerRunning, perform: { isRunning in
+            let _ = updateTrayMins(inProgress: isRunning)
+        })
+        .onChange(of: nostrPrivateKey, perform: { privateKey in
+            subscribeToSecondsNostr()
+        })
+        .onAppear {
+            if (nostrPrivateKey == "") {
+                generateKeys()
+            }
+            
+            // ws
+            websocket.connect() { event in
+                do {
+                    let pubkey = event.tags.first?.otherInformation[0]
+                    let myPubkey = try KeyPair.init(privateKey: nostrPrivateKey).publicKey
+                    
+                    if (pubkey == myPubkey) {
+                        let message = try nostr.decryptMessage(privateKey: nostrPrivateKey, content: event.content)
+                        if (message != nil) {
+                            counter = Double(message!) ?? 0.0
+                        }
+                    }                    
+                } catch let error {
+                    print(error)
+                }
+            } callback: {
+                subscribeToSecondsNostr()
+            }
+        }
     }
 }
-

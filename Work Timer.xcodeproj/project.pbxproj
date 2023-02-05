@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		619A607B298CD9B900F64B19 /* NostrKit in Frameworks */ = {isa = PBXBuildFile; productRef = 619A607A298CD9B900F64B19 /* NostrKit */; };
+		619A607D298EBF6600F64B19 /* Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619A607C298EBF6600F64B19 /* Websocket.swift */; };
+		619A6081298EDEAE00F64B19 /* Nostr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619A6080298EDEAE00F64B19 /* Nostr.swift */; };
 		61C6F96E293B93DA00BC66F8 /* Work_TimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C6F96D293B93DA00BC66F8 /* Work_TimerApp.swift */; };
 		61C6F970293B93DA00BC66F8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C6F96F293B93DA00BC66F8 /* ContentView.swift */; };
 		61C6F972293B93DB00BC66F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61C6F971293B93DB00BC66F8 /* Assets.xcassets */; };
@@ -16,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		619A607C298EBF6600F64B19 /* Websocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Websocket.swift; sourceTree = "<group>"; };
+		619A6080298EDEAE00F64B19 /* Nostr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nostr.swift; sourceTree = "<group>"; };
 		61C6F96A293B93DA00BC66F8 /* Work Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Work Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C6F96D293B93DA00BC66F8 /* Work_TimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work_TimerApp.swift; sourceTree = "<group>"; };
 		61C6F96F293B93DA00BC66F8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				619A607B298CD9B900F64B19 /* NostrKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +73,8 @@
 				61C6F973293B93DB00BC66F8 /* Preview Content */,
 				61C6F97E293BA91700BC66F8 /* AppDelegate.swift */,
 				61C6F983293C70EE00BC66F8 /* Progress.swift */,
+				619A607C298EBF6600F64B19 /* Websocket.swift */,
+				619A6080298EDEAE00F64B19 /* Nostr.swift */,
 			);
 			path = "Work Timer";
 			sourceTree = "<group>";
@@ -95,6 +103,9 @@
 			dependencies = (
 			);
 			name = "Work Timer";
+			packageProductDependencies = (
+				619A607A298CD9B900F64B19 /* NostrKit */,
+			);
 			productName = "Work Timer";
 			productReference = 61C6F96A293B93DA00BC66F8 /* Work Timer.app */;
 			productType = "com.apple.product-type.application";
@@ -107,7 +118,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					61C6F969293B93DA00BC66F8 = {
 						CreatedOnToolsVersion = 14.1;
@@ -123,6 +134,9 @@
 				Base,
 			);
 			mainGroup = 61C6F961293B93DA00BC66F8;
+			packageReferences = (
+				619A6079298CD9B900F64B19 /* XCRemoteSwiftPackageReference "NostrKit" */,
+			);
 			productRefGroup = 61C6F96B293B93DA00BC66F8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -149,8 +163,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				619A6081298EDEAE00F64B19 /* Nostr.swift in Sources */,
 				61C6F97F293BA91700BC66F8 /* AppDelegate.swift in Sources */,
 				61C6F970293B93DA00BC66F8 /* ContentView.swift in Sources */,
+				619A607D298EBF6600F64B19 /* Websocket.swift in Sources */,
 				61C6F984293C70EE00BC66F8 /* Progress.swift in Sources */,
 				61C6F96E293B93DA00BC66F8 /* Work_TimerApp.swift in Sources */,
 			);
@@ -192,6 +208,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -252,6 +269,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -278,9 +296,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Work Timer/Work_Timer.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Work Timer/Preview Content\"";
 				DEVELOPMENT_TEAM = 92YSR234A6;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -307,9 +327,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Work Timer/Work_Timer.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Work Timer/Preview Content\"";
 				DEVELOPMENT_TEAM = 92YSR234A6;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -352,6 +374,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		619A6079298CD9B900F64B19 /* XCRemoteSwiftPackageReference "NostrKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cnixbtc/NostrKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		619A607A298CD9B900F64B19 /* NostrKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 619A6079298CD9B900F64B19 /* XCRemoteSwiftPackageReference "NostrKit" */;
+			productName = NostrKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 61C6F962293B93DA00BC66F8 /* Project object */;
 }
