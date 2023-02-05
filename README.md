@@ -1,7 +1,7 @@
 #  Work Timer
 A simple Pomodoro tracker app for MacOS.
 
-![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/Work-Timer-1.png)
+![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/work-timer.png)
 
 ## Description
 Every vertical line or section on the progress bar is a 25 minute work session (1 pomodoro). 
@@ -12,6 +12,11 @@ The app will send you a notification every 25 minutes.
 https://en.wikipedia.org/wiki/Pomodoro_Technique
 
 ## Features
-* E2E encrypted synchronisation of multiple timers via Nostr protocol https://github.com/nostr-protocol/nostr
+* E2E encrypted synchronisation of multiple timers via Nostr protocol https://github.com/nostr-protocol/nostr (Can be useful for those who use multiple devices)
+
 ![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/nostr-sync.gif)
-![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/Work-Timer-2.png)
+
+* Work session minutes in the tray icon
+![](https://github.com/aduryagin/Work-Timer/blob/main/screenshots/tray-icon.gif)
+
+* Timer automatically focuses after 25-minute work session ends
