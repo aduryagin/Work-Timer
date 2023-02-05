@@ -90,7 +90,7 @@ struct ContentView: View {
                     )
                 ]
             )
-            let message = ClientMessage.subscribe(subscription)
+            let message = NostrMessage.subscribe(subscription)
             websocket.sendMessage(message: message)
         } catch let error {
             websocket.setStatus(status: .Error)
@@ -102,8 +102,9 @@ struct ContentView: View {
         do {
             let seconds = counter
             let event = try nostr.encryptedEvent(String(seconds), privateKey: nostrPrivateKey)
+            
             if let event = event {
-                let message = ClientMessage.event(event)
+                let message = NostrMessage.event(event)
                 websocket.sendMessage(message: message)
             }
         } catch let error {
@@ -154,7 +155,7 @@ struct ContentView: View {
                             pause()
                         } label: {
                             HStack(alignment: VerticalAlignment.center) {
-                                Text("Sync via Nostr settings")
+                                Text("Nostr Sync settings")
                                 Circle()
                                     .fill(
                                         websocket.status == .Error ?
@@ -244,9 +245,9 @@ struct ContentView: View {
             let _ = updateTrayMins(inProgress: isTimerRunning)
             
             // send private message about change
-            if (isTimerRunning) {
-                sendSecondsToNostr()
-            }
+//            if (isTimerRunning) {
+            sendSecondsToNostr()
+//            }
         })
         .onChange(of: isTimerRunning, perform: { isRunning in
             let _ = updateTrayMins(inProgress: isRunning)

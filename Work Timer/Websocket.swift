@@ -43,7 +43,7 @@ class Websocket: ObservableObject {
         self.status = status
     }
     
-    func sendMessage(message: ClientMessage) {
+    func sendMessage(message: NostrMessage) {
         do {
             if (self.instance.state != .running) {
                 self.reconnect()
@@ -75,11 +75,10 @@ class Websocket: ObservableObject {
                         switch message {
                         case .string(let text):
                             do {
-                                print(text)
-                                
                                 if (text.contains("\"EVENT\"")) {
                                     let message = try RelayMessage(text: text)
                                     if case .event(_, let event) = message {
+                                        print(event)
                                         self.onEvent(event)
                                     }
                                 }
@@ -114,7 +113,8 @@ class Websocket: ObservableObject {
     }
     
     static func createWebsocketConnection() -> URLSessionWebSocketTask {
-        return URLSession(configuration: .default).webSocketTask(with: URL(string: "wss://nostr.einundzwanzig.space")!)
+//        return URLSession(configuration: .default).webSocketTask(with: URL(string: "wss://nostr-pub.wellorder.net")!)
+        return URLSession(configuration: .default).webSocketTask(with: URL(string: "ws://localhost:8080")!)
     }
     
     // sleep events

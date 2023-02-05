@@ -65,6 +65,14 @@ class Nostr {
         return Data(bytes: bytes, count: count)
     }
     
+    func sha256(_ data: Data) -> Data {
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        data.withUnsafeBytes {
+            _ = CC_SHA256($0.baseAddress, CC_LONG(data.count), &hash)
+        }
+        return Data(hash)
+    }
+    
     func get_shared_secret(privkey: String, pubkey: String) -> [UInt8]? {
         guard let privkey_bytes = try? privkey.bytes else {
             return nil
@@ -158,7 +166,7 @@ class Nostr {
     func encryptedEvent(
         _ message: String,
         privateKey: String
-    ) throws -> Event? {
+    ) throws -> NostrEvent? {
         let keyPair = try KeyPair(privateKey: privateKey)
                 
         // encrypt
@@ -172,7 +180,7 @@ class Nostr {
         }
         let enc_content = encode_dm_base64(content: enc_message.bytes, iv: iv)
         
-        let event = try Event(
+        let event = try NostrEvent(
             keyPair: keyPair,
             kind: .custom(4),
             tags: [.pubKey(publicKey: keyPair.publicKey)],

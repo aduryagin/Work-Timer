@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		618CD290298F97DB001EBF21 /* NostrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618CD28F298F97DB001EBF21 /* NostrEvent.swift */; };
+		618CD292298F99BD001EBF21 /* NostrMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618CD291298F99BD001EBF21 /* NostrMessage.swift */; };
 		619A607B298CD9B900F64B19 /* NostrKit in Frameworks */ = {isa = PBXBuildFile; productRef = 619A607A298CD9B900F64B19 /* NostrKit */; };
 		619A607D298EBF6600F64B19 /* Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619A607C298EBF6600F64B19 /* Websocket.swift */; };
 		619A6081298EDEAE00F64B19 /* Nostr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619A6080298EDEAE00F64B19 /* Nostr.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		618CD28F298F97DB001EBF21 /* NostrEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NostrEvent.swift; sourceTree = "<group>"; };
+		618CD291298F99BD001EBF21 /* NostrMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NostrMessage.swift; sourceTree = "<group>"; };
 		619A607C298EBF6600F64B19 /* Websocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Websocket.swift; sourceTree = "<group>"; };
 		619A6080298EDEAE00F64B19 /* Nostr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nostr.swift; sourceTree = "<group>"; };
 		61C6F96A293B93DA00BC66F8 /* Work Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Work Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +77,8 @@
 				61C6F983293C70EE00BC66F8 /* Progress.swift */,
 				619A607C298EBF6600F64B19 /* Websocket.swift */,
 				619A6080298EDEAE00F64B19 /* Nostr.swift */,
+				618CD28F298F97DB001EBF21 /* NostrEvent.swift */,
+				618CD291298F99BD001EBF21 /* NostrMessage.swift */,
 			);
 			path = "Work Timer";
 			sourceTree = "<group>";
@@ -161,6 +167,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				618CD292298F99BD001EBF21 /* NostrMessage.swift in Sources */,
+				618CD290298F97DB001EBF21 /* NostrEvent.swift in Sources */,
 				619A6081298EDEAE00F64B19 /* Nostr.swift in Sources */,
 				61C6F97F293BA91700BC66F8 /* AppDelegate.swift in Sources */,
 				61C6F970293B93DA00BC66F8 /* ContentView.swift in Sources */,
