@@ -273,7 +273,7 @@ struct ContentView: View {
                     
                     if (pubkey == myPubkey) {
                         let message = try nostr.decryptMessage(privateKey: nostrPrivateKey, content: event.content)
-                        if (message != nil) {
+                        if (message != nil && !isTimerRunning) {
                             counter = Double(message!) ?? 0.0
                         }
                     }                    

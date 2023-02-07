@@ -68,39 +68,44 @@ class Websocket: ObservableObject {
         self.onEvent = onEvent
         self.connectCallback = callback
         func listen() {
-            self.instance.receive { result in
-                switch result {
-                case .success(let message):
-                    DispatchQueue.main.async {
-                        self.status = .Success
-                        switch message {
-                        case .string(let text):
-                            do {
-                                if (text.contains("\"EVENT\"")) {
-                                    let message = try RelayMessage(text: text)
-                                    if case .event(_, let event) = message {
-                                        print(event)
-                                        self.onEvent(event)
+            func workItem() {
+                self.instance.receive { result in
+                    switch result {
+                    case .success(let message):
+                        DispatchQueue.main.async {
+                            self.status = .Success
+                            switch message {
+                            case .string(let text):
+                                do {
+                                    if (text.contains("\"EVENT\"")) {
+                                        let message = try RelayMessage(text: text)
+                                        if case .event(_, let event) = message {
+                                            print(event)
+                                            self.onEvent(event)
+                                        }
                                     }
+                                } catch let error {
+                                    print("LISTEN catch", error)
                                 }
-                            } catch let error {
-                                print(error)
+                                
+                            default:
+                                self.status = .Error
+                                print("LISTEN default", "Error: Received unknown message type")
                             }
-                            
-                        default:
-                            self.status = .Error
-                            print("Error: Received unknown message type")
                         }
+                    case .failure(let error):
+                        if (self.status != .Error) {
+                            self.status = .Error
+                        }
+                        
+                        print("LISTEN Failure", "Error: \(error)")
                     }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        self.status = .Error
-                        print("Error: \(error)")                        
-                    }
+                    
+                    listen()
                 }
-                
-                listen()
             }
+            
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1 , execute: workItem)
         }
         
         listen()
