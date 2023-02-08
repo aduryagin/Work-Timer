@@ -10,6 +10,8 @@ import UserNotifications
 import NostrKit
 import secp256k1
 
+var disableUITask: DispatchWorkItem?
+
 struct ContentView: View {
     let appDelegate: AppDelegate
     let workSessionSeconds: Double = 25 * 60 // 25 min
@@ -18,8 +20,10 @@ struct ContentView: View {
     let nostr = Nostr()
     @ObservedObject var websocket = Websocket()
     
+    @AppStorage("clientId") private var clientId = String(bytes: try! secp256k1.Signing.PrivateKey().publicKey.rawRepresentation)
     @AppStorage("nostrPrivateKey") private var nostrPrivateKey = ""
     
+    @State var isUIDisabled = false
     @State var isNostrView = false
     @State var isSetCounterView = false
     @State var newCounter: String = ""
@@ -101,7 +105,7 @@ struct ContentView: View {
     func sendSecondsToNostr() {
         do {
             let seconds = counter
-            let event = try nostr.encryptedEvent(String(seconds), privateKey: nostrPrivateKey)
+            let event = try nostr.encryptedEvent(String("\(seconds) \(clientId)"), privateKey: nostrPrivateKey)
             
             if let event = event {
                 let message = NostrMessage.event(event)
@@ -111,6 +115,24 @@ struct ContentView: View {
             websocket.setStatus(status: .Error)
             print(error)
         }
+    }
+    
+    func disableUI() {
+        if (!isUIDisabled) {
+            isUIDisabled = true            
+        }
+        
+        disableUITask?.cancel()
+        
+        let task = DispatchWorkItem {
+            DispatchQueue.main.async {
+                isUIDisabled = false
+            }
+        }
+        
+        disableUITask = task
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0, execute: task)
     }
     
     var body: some View {
@@ -149,7 +171,7 @@ struct ContentView: View {
                             pause()
                         } label: {
                             Text("Set seconds manually")
-                        }
+                        }.disabled(isUIDisabled)
                         Button {
                             isNostrView.toggle()
                             pause()
@@ -174,6 +196,7 @@ struct ContentView: View {
                             if (new < workDaySeconds && new >= 0) {
                                 counter = new
                                 isSetCounterView.toggle()
+                                sendSecondsToNostr()
                             }
                         } label: {
                             Text("Save")
@@ -219,29 +242,33 @@ struct ContentView: View {
                 Button {
                     let index = floor(counter / workSessionSeconds) - 1
                     counter = index * workSessionSeconds
+                    sendSecondsToNostr()
                 } label: {
                     Image(systemName: "chevron.left")
-                }.disabled(counter == 0 || isSetCounterView || isNostrView)
+                }.disabled(counter == 0 || isSetCounterView || isNostrView || isUIDisabled)
                 Button {
                     isTimerRunning = false
                     counter = 0
+                    sendSecondsToNostr()
                     appDelegate.resetIcon()
                 } label: {
                     Text("Reset")
-                }.disabled(counter == 0 || isSetCounterView || isNostrView)
+                }.disabled(counter == 0 || isSetCounterView || isNostrView || isUIDisabled)
                 Button {
                     isTimerRunning.toggle()
                 } label: {
                     Text(isTimerRunning ? "Pause" : counter != 0 ? "Continue" : "Start")
                 }
                 .keyboardShortcut(.space, modifiers: [])
-                .disabled(isSetCounterView || isNostrView)
+                .disabled(isSetCounterView || isNostrView || isUIDisabled)
                 Button {
                     let index = floor(counter / workSessionSeconds) + 1
                     counter = index * workSessionSeconds
+                    sendSecondsToNostr()
                 } label: {
                     Image(systemName: "chevron.right")
-                }.disabled(counter == workDaySeconds || isSetCounterView || isNostrView)
+                }
+                .disabled(counter == workDaySeconds || isSetCounterView || isNostrView || isUIDisabled)
             }
         }
         .padding()
@@ -250,9 +277,9 @@ struct ContentView: View {
             let _ = updateTrayMins(inProgress: isTimerRunning)
             
             // send private message about change
-//            if (isTimerRunning) {
-            sendSecondsToNostr()
-//            }
+            if (isTimerRunning) {
+                sendSecondsToNostr()
+            }
         })
         .onChange(of: isTimerRunning, perform: { isRunning in
             let _ = updateTrayMins(inProgress: isRunning)
@@ -271,12 +298,27 @@ struct ContentView: View {
                     let pubkey = event.tags.first?.otherInformation[0]
                     let myPubkey = try KeyPair.init(privateKey: nostrPrivateKey).publicKey
                     
-                    if (pubkey == myPubkey) {
-                        let message = try nostr.decryptMessage(privateKey: nostrPrivateKey, content: event.content)
-                        if (message != nil && !isTimerRunning) {
-                            counter = Double(message!) ?? 0.0
-                        }
-                    }                    
+                    if (pubkey != myPubkey) { return }
+                    
+                    let message = try nostr.decryptMessage(privateKey: nostrPrivateKey, content: event.content)
+                    if (message == nil) { return }
+                    
+                    let content = message!.components(separatedBy: " ")
+                    if (content.count != 2) { return }
+                        
+                    let messageSeconds = Double(content[0]) ?? 0.0
+                    let messageClientId = content[1]
+                    
+                    if (clientId != messageClientId) {
+                        disableUI()
+                    }
+                    
+                    if (
+                        isTimerRunning ||
+                        (clientId == messageClientId && counter >= messageSeconds)
+                    ) { return }
+                    
+                    counter = messageSeconds
                 } catch let error {
                     print(error)
                 }
