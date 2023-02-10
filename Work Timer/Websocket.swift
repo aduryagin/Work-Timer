@@ -110,6 +110,8 @@ class Websocket: ObservableObject {
         
         listen()
         self.instance.resume()
+        self.status = .Success
+        
         callback()
     }
     
