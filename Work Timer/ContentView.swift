@@ -13,7 +13,9 @@ import secp256k1
 var disableUITask: DispatchWorkItem?
 
 struct ContentView: View {
+    #if os(macOS)
     let appDelegate: AppDelegate
+    #endif
     let workSessionSeconds: Double = 25 * 60 // 25 min
     let workDaySeconds: Double = 400 * 60 // 400 min
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -66,7 +68,9 @@ struct ContentView: View {
     
     func updateTrayMins(inProgress: Bool) -> Double {
         let remainder = getSessionSeconds()
+        #if os(macOS)
         appDelegate.updateIcon(formatMinutes(remainder), inProgress: inProgress)
+        #endif
         return remainder
     }
     
@@ -119,7 +123,7 @@ struct ContentView: View {
     
     func disableUI() {
         if (!isUIDisabled) {
-            isUIDisabled = true            
+            isUIDisabled = true
         }
         
         disableUITask?.cancel()
@@ -152,7 +156,9 @@ struct ContentView: View {
                                 isTimerRunning = false
                                 
                                 showNotification(message: "Workday is over!")
+                                #if os(macOS)
                                 appDelegate.activateApplication()
+                                #endif
                             } else if (remainder == 0) {
                                 var message = "Time for a 5 min break"
                                 if (counter.truncatingRemainder(dividingBy: workSessionSeconds * 4) == 0) {
@@ -160,7 +166,10 @@ struct ContentView: View {
                                 }
                                 
                                 showNotification(message: message)
+                                
+                                #if os(macOS)
                                 appDelegate.activateApplication()
+                                #endif
                             }
                         }
                     }
@@ -250,7 +259,9 @@ struct ContentView: View {
                     isTimerRunning = false
                     counter = 0
                     sendSecondsToNostr()
+                    #if os(macOS)
                     appDelegate.resetIcon()
+                    #endif
                 } label: {
                     Text("Reset")
                 }.disabled(counter == 0 || isSetCounterView || isNostrView || isUIDisabled)

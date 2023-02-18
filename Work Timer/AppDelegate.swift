@@ -5,10 +5,12 @@
 //  Created by Alexey Duryagin on 03/12/2022.
 //
 
+#if os(macOS)
+
 import Foundation
-import AppKit
 import SwiftUI
 import UserNotifications
+import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem?
@@ -72,3 +74,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.badge, .sound])
     }
 }
+
+#endif

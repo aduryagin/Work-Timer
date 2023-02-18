@@ -8,7 +8,9 @@
 import Foundation
 import NostrKit
 import Network
+#if canImport(AppKit)
 import AppKit
+#endif
 import SwiftUI
 
 enum ConnectionStatus {
@@ -16,7 +18,7 @@ enum ConnectionStatus {
     case Error
 }
 
-let DEFAULT_RELAY = "wss://nostr-pub.wellorder.net"
+let DEFAULT_RELAY = "wss://nos.lol"
 
 class Websocket: ObservableObject {
     @AppStorage("relay") var relay = DEFAULT_RELAY
@@ -95,7 +97,9 @@ class Websocket: ObservableObject {
                         }
                     case .failure(let error):
                         if (self.status != .Error) {
-                            self.status = .Error
+                            DispatchQueue.main.async {
+                                self.status = .Error
+                            }
                         }
                         
                         print("LISTEN Failure", "Error: \(error)")
@@ -136,10 +140,11 @@ class Websocket: ObservableObject {
 //    }
 
     func fileNotifications() {
+        #if os(macOS)
         NSWorkspace.shared.notificationCenter.addObserver(
             self, selector: #selector(onWakeNote(note:)),
             name: NSWorkspace.didWakeNotification, object: nil)
-
+        #endif
 //        NSWorkspace.shared.notificationCenter.addObserver(
 //            self, selector: #selector(onSleepNote(note:)),
 //            name: NSWorkspace.willSleepNotification, object: nil)

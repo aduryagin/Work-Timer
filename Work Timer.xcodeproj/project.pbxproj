@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		618CD290298F97DB001EBF21 /* NostrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618CD28F298F97DB001EBF21 /* NostrEvent.swift */; };
 		618CD292298F99BD001EBF21 /* NostrMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618CD291298F99BD001EBF21 /* NostrMessage.swift */; };
+		618CD29B29969F3E001EBF21 /* Work-Timer-Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 618CD29A29969F3E001EBF21 /* Work-Timer-Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		618CD2A029969F3E001EBF21 /* Work_Timer_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618CD29F29969F3E001EBF21 /* Work_Timer_WatchApp.swift */; };
+		618CD2A229969F3E001EBF21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618CD2A129969F3E001EBF21 /* ContentView.swift */; };
+		618CD2A429969F40001EBF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 618CD2A329969F40001EBF21 /* Assets.xcassets */; };
+		618CD2A729969F40001EBF21 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 618CD2A629969F40001EBF21 /* Preview Assets.xcassets */; };
+		618CD2AA29969F40001EBF21 /* Work-Timer-Watch.app in Resources */ = {isa = PBXBuildFile; fileRef = 618CD29529969F3E001EBF21 /* Work-Timer-Watch.app */; };
 		619A607B298CD9B900F64B19 /* NostrKit in Frameworks */ = {isa = PBXBuildFile; productRef = 619A607A298CD9B900F64B19 /* NostrKit */; };
 		619A607D298EBF6600F64B19 /* Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619A607C298EBF6600F64B19 /* Websocket.swift */; };
 		619A6081298EDEAE00F64B19 /* Nostr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619A6080298EDEAE00F64B19 /* Nostr.swift */; };
@@ -20,9 +26,46 @@
 		61C6F984293C70EE00BC66F8 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C6F983293C70EE00BC66F8 /* Progress.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		618CD29C29969F3E001EBF21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61C6F962293B93DA00BC66F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 618CD29929969F3E001EBF21;
+			remoteInfo = "Work-Timer-Watch Watch App";
+		};
+		618CD2A829969F40001EBF21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 61C6F962293B93DA00BC66F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 618CD29429969F3E001EBF21;
+			remoteInfo = "Work-Timer-Watch";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		618CD2AE29969F40001EBF21 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				618CD29B29969F3E001EBF21 /* Work-Timer-Watch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		618CD28F298F97DB001EBF21 /* NostrEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NostrEvent.swift; sourceTree = "<group>"; };
 		618CD291298F99BD001EBF21 /* NostrMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NostrMessage.swift; sourceTree = "<group>"; };
+		618CD29529969F3E001EBF21 /* Work-Timer-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Work-Timer-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		618CD29A29969F3E001EBF21 /* Work-Timer-Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Work-Timer-Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		618CD29F29969F3E001EBF21 /* Work_Timer_WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work_Timer_WatchApp.swift; sourceTree = "<group>"; };
+		618CD2A129969F3E001EBF21 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		618CD2A329969F40001EBF21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		618CD2A629969F40001EBF21 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		619A607C298EBF6600F64B19 /* Websocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Websocket.swift; sourceTree = "<group>"; };
 		619A6080298EDEAE00F64B19 /* Nostr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nostr.swift; sourceTree = "<group>"; };
 		61C6F96A293B93DA00BC66F8 /* Work Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Work Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,6 +80,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		618CD29729969F3E001EBF21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61C6F967293B93DA00BC66F8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -48,11 +98,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		618CD29E29969F3E001EBF21 /* Work-Timer-Watch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				618CD29F29969F3E001EBF21 /* Work_Timer_WatchApp.swift */,
+				618CD2A129969F3E001EBF21 /* ContentView.swift */,
+				618CD2A329969F40001EBF21 /* Assets.xcassets */,
+				618CD2A529969F40001EBF21 /* Preview Content */,
+			);
+			path = "Work-Timer-Watch Watch App";
+			sourceTree = "<group>";
+		};
+		618CD2A529969F40001EBF21 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				618CD2A629969F40001EBF21 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		61C6F961293B93DA00BC66F8 = {
 			isa = PBXGroup;
 			children = (
 				61C6F980293BD70900BC66F8 /* README.md */,
 				61C6F96C293B93DA00BC66F8 /* Work Timer */,
+				618CD29E29969F3E001EBF21 /* Work-Timer-Watch Watch App */,
 				61C6F96B293B93DA00BC66F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				61C6F96A293B93DA00BC66F8 /* Work Timer.app */,
+				618CD29529969F3E001EBF21 /* Work-Timer-Watch.app */,
+				618CD29A29969F3E001EBF21 /* Work-Timer-Watch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +166,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		618CD29429969F3E001EBF21 /* Work-Timer-Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 618CD2AF29969F40001EBF21 /* Build configuration list for PBXNativeTarget "Work-Timer-Watch" */;
+			buildPhases = (
+				618CD29329969F3E001EBF21 /* Resources */,
+				618CD2AE29969F40001EBF21 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				618CD29D29969F3E001EBF21 /* PBXTargetDependency */,
+			);
+			name = "Work-Timer-Watch";
+			productName = "Work-Timer-Watch";
+			productReference = 618CD29529969F3E001EBF21 /* Work-Timer-Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		618CD29929969F3E001EBF21 /* Work-Timer-Watch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 618CD2AB29969F40001EBF21 /* Build configuration list for PBXNativeTarget "Work-Timer-Watch Watch App" */;
+			buildPhases = (
+				618CD29629969F3E001EBF21 /* Sources */,
+				618CD29729969F3E001EBF21 /* Frameworks */,
+				618CD29829969F3E001EBF21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Work-Timer-Watch Watch App";
+			productName = "Work-Timer-Watch Watch App";
+			productReference = 618CD29A29969F3E001EBF21 /* Work-Timer-Watch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		61C6F969293B93DA00BC66F8 /* Work Timer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61C6F979293B93DB00BC66F8 /* Build configuration list for PBXNativeTarget "Work Timer" */;
@@ -105,6 +211,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				618CD2A929969F40001EBF21 /* PBXTargetDependency */,
 			);
 			name = "Work Timer";
 			packageProductDependencies = (
@@ -121,9 +228,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					618CD29429969F3E001EBF21 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					618CD29929969F3E001EBF21 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					61C6F969293B93DA00BC66F8 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -146,15 +259,34 @@
 			projectRoot = "";
 			targets = (
 				61C6F969293B93DA00BC66F8 /* Work Timer */,
+				618CD29429969F3E001EBF21 /* Work-Timer-Watch */,
+				618CD29929969F3E001EBF21 /* Work-Timer-Watch Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		618CD29329969F3E001EBF21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		618CD29829969F3E001EBF21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				618CD2A729969F40001EBF21 /* Preview Assets.xcassets in Resources */,
+				618CD2A429969F40001EBF21 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61C6F968293B93DA00BC66F8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				618CD2AA29969F40001EBF21 /* Work-Timer-Watch.app in Resources */,
 				61C6F975293B93DB00BC66F8 /* Preview Assets.xcassets in Resources */,
 				61C6F972293B93DB00BC66F8 /* Assets.xcassets in Resources */,
 			);
@@ -163,6 +295,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		618CD29629969F3E001EBF21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				618CD2A229969F3E001EBF21 /* ContentView.swift in Sources */,
+				618CD2A029969F3E001EBF21 /* Work_Timer_WatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		61C6F966293B93DA00BC66F8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -180,7 +321,116 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		618CD29D29969F3E001EBF21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 618CD29929969F3E001EBF21 /* Work-Timer-Watch Watch App */;
+			targetProxy = 618CD29C29969F3E001EBF21 /* PBXContainerItemProxy */;
+		};
+		618CD2A929969F40001EBF21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 618CD29429969F3E001EBF21 /* Work-Timer-Watch */;
+			targetProxy = 618CD2A829969F40001EBF21 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		618CD2AC29969F40001EBF21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Work-Timer-Watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 92YSR234A6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Work-Timer-Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.aduryag.Work-Timer-Watch.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		618CD2AD29969F40001EBF21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Work-Timer-Watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 92YSR234A6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Work-Timer-Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.aduryag.Work-Timer-Watch.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
+		618CD2B029969F40001EBF21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92YSR234A6;
+				INFOPLIST_KEY_CFBundleDisplayName = "Work-Timer-Watch";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.aduryag.Work-Timer-Watch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		618CD2B129969F40001EBF21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92YSR234A6;
+				INFOPLIST_KEY_CFBundleDisplayName = "Work-Timer-Watch";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.aduryag.Work-Timer-Watch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		61C6F977293B93DB00BC66F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -322,8 +572,12 @@
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "in.aduryag.Work-Timer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -353,14 +607,36 @@
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "in.aduryag.Work-Timer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		618CD2AB29969F40001EBF21 /* Build configuration list for PBXNativeTarget "Work-Timer-Watch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				618CD2AC29969F40001EBF21 /* Debug */,
+				618CD2AD29969F40001EBF21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		618CD2AF29969F40001EBF21 /* Build configuration list for PBXNativeTarget "Work-Timer-Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				618CD2B029969F40001EBF21 /* Debug */,
+				618CD2B129969F40001EBF21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		61C6F965293B93DA00BC66F8 /* Build configuration list for PBXProject "Work Timer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
